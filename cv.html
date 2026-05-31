@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV — César Gil | Técnico SMR</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:   #1B3A6B;
+      --navy2:  #122850;
+      --orange: #F5821F;
+      --white:  #FFFFFF;
+      --light:  #EEF2FA;
+      --muted:  #888;
+      --dark:   #222;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Inter', Calibri, Arial, sans-serif;
+      background: #cdd3df;
+      display: flex;
+      justify-content: center;
+      padding: 30px 10px;
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .cv { box-shadow: none !important; width: 210mm !important; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      @page { margin: 0; size: A4 portrait; }
+      .print-note { display: none !important; }
+    }
+
+    .cv {
+      width: 210mm;
+      height: 297mm;
+      background: white;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .cv-body {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+    .cv-url-header {
+      background: var(--navy2);
+      text-align: center;
+      padding: 5px 0;
+      font-size: 7.5pt;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    .cv-url-header span { color: var(--orange); font-weight: 700; }
+    .cv-url-footer {
+      background: var(--navy2);
+      text-align: center;
+      padding: 5px 0;
+      font-size: 7.5pt;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+      border-top: 2px solid var(--orange);
+    }
+    .cv-url-footer span { color: var(--orange); font-weight: 700; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 68mm;
+      background: var(--navy);
+      color: white;
+      padding: 26px 16px 20px 18px;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .s-name {
+      font-size: 22pt;
+      font-weight: 800;
+      color: white;
+      line-height: 1.05;
+      letter-spacing: -0.5px;
+      margin-bottom: 3px;
+    }
+    .s-title {
+      font-size: 8.5pt;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .s-web {
+      font-size: 7.5pt;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+    .s-divider {
+      border: none;
+      border-top: 1px solid rgba(245,130,31,0.4);
+      margin: 11px 0;
+    }
+    .s-section {
+      font-size: 7pt;
+      font-weight: 700;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 7px;
+    }
+    .s-item {
+      font-size: 8pt;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+    .s-item.bold { font-weight: 700; color: white; font-size: 8.5pt; }
+    .s-item.muted { color: rgba(255,255,255,0.55); font-size: 7.5pt; }
+
+    /* Dot skill rows */
+    .dot-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+    .dot-label { font-size: 8pt; color: rgba(255,255,255,0.85); flex: 1; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.2); flex-shrink: 0; }
+    .dot.on { background: var(--orange); }
+
+    /* ── CONTENT ── */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Orange top stripe */
+    .top-stripe {
+      height: 5px;
+      background: linear-gradient(90deg, var(--orange) 0%, var(--navy) 100%);
+      flex-shrink: 0;
+    }
+
+    .content-inner {
+      padding: 18px 18px 10px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Profile */
+    .profile-text {
+      font-size: 8pt;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid var(--light);
+    }
+
+    /* Section title */
+    .sec-title {
+      font-size: 8pt;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-bottom: 2px solid var(--orange);
+      padding-bottom: 3px;
+      margin-bottom: 8px;
+    }
+
+    /* Jobs */
+    .job { margin-bottom: 9px; }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+    .job-title {
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .job-date {
+      font-size: 7.5pt;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .job-date.hot { color: var(--orange); font-weight: 700; }
+    .job-company {
+      font-size: 7.5pt;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .job-desc {
+      font-size: 7.5pt;
+      color: #555;
+      line-height: 1.5;
+      padding-left: 8px;
+      border-left: 1.5px solid rgba(245,130,31,0.35);
+    }
+
+    /* Education */
+    .edu-row { margin-bottom: 7px; }
+    .edu-title { font-size: 8pt; font-weight: 700; color: var(--navy); }
+    .edu-sub { font-size: 7.5pt; color: var(--muted); }
+
+    /* Tech skills */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px 14px;
+    }
+    .tech-item {
+      font-size: 7.5pt;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .tech-item::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: var(--orange);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Section spacer */
+    .sec { margin-bottom: 11px; }
+
+    /* CHART BAR (bottom) */
+    .chart-bar {
+      background: var(--light);
+      border-top: 2.5px solid var(--orange);
+      padding: 8px 18px 7px 18px;
+      flex-shrink: 0;
+    }
+    .chart-title {
+      font-size: 7pt;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+    .chart-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 16px;
+    }
+    .chart-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chart-label {
+      font-size: 6.5pt;
+      color: #444;
+      width: 105px;
+      flex-shrink: 0;
+      text-align: right;
+      line-height: 1.2;
+    }
+    .bar-bg {
+      flex: 1;
+      height: 7px;
+      background: #d8dfe8;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--navy) 0%, var(--orange) 100%);
+    }
+    .bar-val {
+      font-size: 6.5pt;
+      font-weight: 700;
+      color: var(--navy);
+      width: 26px;
+      flex-shrink: 0;
+    }
+
+    /* Print hint */
+    .print-note {
+      text-align: center;
+      font-size: 7.5pt;
+      color: #aaa;
+      padding: 8px 0 4px;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div style="width:210mm; display:flex; flex-direction:column;">
+
+  <div class="cv">
+
+    <!-- ══ HEADER STRIP ══ -->
+    <div class="cv-url-header">
+      Perfil completo en <span>cesargil.dev</span> · proyectos, experiencia detallada y contacto
+    </div>
+
+    <div class="cv-body">
+
+      <!-- ══ SIDEBAR ══ -->
+      <div class="sidebar">
+
+        <div class="s-name">César<br>Gil</div>
+        <div class="s-title">Técnico en Sistemas<br>Microinformáticos y Redes</div>
+        <div class="s-web">cesargil.dev</div>
+
+        <hr class="s-divider">
+
+        <div class="s-section">Contacto</div>
+        <div class="s-item">+34 634 344 541</div>
+        <div class="s-item">cesar.gil.g@gmail.com</div>
+        <div class="s-item">Santiago de Compostela</div>
+
+        <hr class="s-divider">
+
+        <div class="s-section">Competencias</div>
+        <div class="dot-row">
+          <div class="dot-label">Trabajo en equipo</div>
+          <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div>
+        </div>
+        <div class="dot-row">
+          <div class="dot-label">Atención al cliente</div>
+          <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div>
+        </div>
+        <div class="dot-row">
+          <div class="dot-label">Soporte y diagnóstico</div>
+          <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
+        </div>
+        <div class="dot-row">
+          <div class="dot-label">Adaptabilidad</div>
+          <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
+        </div>
+        <div class="dot-row">
+          <div class="dot-label">Aprendizaje continuo</div>
+          <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
+        </div>
+
+        <hr class="s-divider">
+
+        <div class="s-section">Idiomas</div>
+        <div class="s-item">Español — Nativo</div>
+        <div class="s-item">Gallego — Nativo</div>
+        <div class="s-item">Inglés — Avanzado</div>
+
+        <hr class="s-divider">
+
+        <div class="s-section">Movilidad</div>
+        <div class="s-item">Carné B</div>
+        <div class="s-item">Vehículo propio</div>
+        <div class="s-item">Disponible para<br>desplazamientos</div>
+
+        <hr class="s-divider">
+
+        <div class="s-section">Portfolio</div>
+        <div class="s-item bold">cesargil.dev</div>
+        <div class="s-item muted">Experiencia completa,<br>proyectos y contacto.</div>
+
+      </div><!-- end sidebar -->
+
+      <!-- ══ CONTENT ══ -->
+      <div class="content">
+        <div class="top-stripe"></div>
+        <div class="content-inner">
+
+          <!-- PERFIL -->
+          <div class="profile-text">
+            Técnico en Sistemas Microinformáticos y Redes con más de 25 años de experiencia práctica
+            en redes, soporte técnico y sistemas informáticos. A lo largo de su trayectoria ha gestionado
+            infraestructuras de red y diagnosticado incidencias en entornos con acceso limitado a la infraestructura.
+            Perfil complementado con experiencia en edición de vídeo, diseño gráfico, producción musical y conocimientos
+            en desarrollo web fullstack. Formación reglada consolidada con el CFGM SMR (2027) y 500h de FCT en empresa de
+            telecomunicaciones. Carné B con vehículo propio, disponibilidad para desplazamientos.
+          </div>
+
+          <!-- EXPERIENCIA -->
+          <div class="sec">
+            <div class="sec-title">Experiencia</div>
+
+            <div class="job">
+              <div class="job-header">
+                <div class="job-title">Técnico de Redes en Prácticas · FCT 500h</div>
+                <div class="job-date hot">Mar 2027 – Jun 2027</div>
+              </div>
+              <div class="job-company">AMTEGA · Xunta de Galicia · Cidade da Cultura, Santiago de Compostela</div>
+              <div class="job-desc">Resolución de incidencias de red y sistemas en entorno de administración pública. Soporte técnico remoto y gestión de tickets. Monitorización de infraestructura y documentación técnica.</div>
+            </div>
+
+            <div class="job">
+              <div class="job-header">
+                <div class="job-title">Conserje · Responsable Técnico</div>
+                <div class="job-date">2017 – 2025</div>
+              </div>
+              <div class="job-company">Centro Cultural Municipal · Santiago de Compostela</div>
+              <div class="job-desc">Durante 8 años compaginó las funciones de conserjería con la responsabilidad técnica del centro: gestión de la red, mantenimiento de equipos informáticos y electrónicos, diagnóstico de incidencias en coordinación con el Ayuntamiento. Producción audiovisual y técnico de sonido.</div>
+            </div>
+
+            <div class="job">
+              <div class="job-header">
+                <div class="job-title">Técnico de Redes y Soporte Remoto</div>
+                <div class="job-date">2014 – 2016</div>
+              </div>
+              <div class="job-company">OCEANS Telefonía</div>
+              <div class="job-desc">Ascendido de comercial a técnico. Soporte remoto vía túnel IP. Guía verbal al cliente para configurar routers en tiempo real. Detección de caída de nodo regional con solo ping y análisis de patrones.</div>
+            </div>
+
+            <div class="job">
+              <div class="job-header">
+                <div class="job-title">Técnico Instalador de Fibra Óptica</div>
+                <div class="job-date">2018</div>
+              </div>
+              <div class="job-company">Circet Cableven S.L.U.</div>
+              <div class="job-desc">Instalación de fibra óptica en domicilios particulares. Montaje de equipos de red y resolución de particularidades constructivas de cada vivienda.</div>
+            </div>
+
+          </div><!-- end sec experiencia -->
+
+          <!-- FORMACIÓN -->
+          <div class="sec">
+            <div class="sec-title">Formación</div>
+            <div class="edu-row">
+              <div class="job-header">
+                <div class="edu-title">CFGM Sistemas Microinformáticos e Redes (SMR)</div>
+                <div class="job-date hot">Finalizado 2027</div>
+              </div>
+              <div class="edu-sub">Formación Profesional reglada · Galicia</div>
+            </div>
+            <div class="edu-row">
+              <div class="job-header">
+                <div class="edu-title">Bootcamp Fullstack Developer</div>
+                <div class="job-date">2021</div>
+              </div>
+              <div class="edu-sub">CODENOTCH · JavaScript, Node.js, Angular, MySQL, MongoDB</div>
+            </div>
+            <div class="edu-row">
+              <div class="job-header">
+                <div class="edu-title">Técnico Electrónico de Bajo Consumo</div>
+                <div class="job-date">2001–2003</div>
+              </div>
+              <div class="edu-sub">Electrónica, reparación de equipos</div>
+            </div>
+          </div><!-- end sec formacion -->
+
+          <!-- CONOCIMIENTOS TÉCNICOS -->
+          <div class="sec">
+            <div class="sec-title">Conocimientos técnicos</div>
+            <div class="tech-grid">
+              <div class="tech-item">Redes LAN / WAN / WiFi</div>
+              <div class="tech-item">JavaScript / Node.js / Angular</div>
+              <div class="tech-item">Fibra óptica e instalación</div>
+              <div class="tech-item">HTML / CSS / MySQL / MongoDB</div>
+              <div class="tech-item">Configuración de routers / ONTs</div>
+              <div class="tech-item">Diagnóstico y reparación hardware</div>
+              <div class="tech-item">Windows (avanzado) / Linux (básico)</div>
+              <div class="tech-item">Diseño gráfico / Edición vídeo</div>
+            </div>
+          </div><!-- end sec tecnico -->
+
+        </div><!-- end content-inner -->
+
+        <!-- APTITUDES CHART -->
+        <div class="chart-bar">
+          <div class="chart-title">Aptitudes — autoevaluación honesta / 10</div>
+          <div class="chart-cols">
+            <div class="chart-row">
+              <div class="chart-label">Documentación técnica</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:70%"></div></div>
+              <div class="bar-val">7,0</div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label">Comunicación técnica</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:81%"></div></div>
+              <div class="bar-val">8,1</div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label">Trabajo en equipo</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:72%"></div></div>
+              <div class="bar-val">7,2</div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label">Tolerancia al estrés</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:83%"></div></div>
+              <div class="bar-val">8,3</div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label">Organización</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:74%"></div></div>
+              <div class="bar-val">7,4</div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label">Pensamiento analítico</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:85%"></div></div>
+              <div class="bar-val">8,5</div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label">Liderazgo</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:75%"></div></div>
+              <div class="bar-val">7,5</div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label">Resiliencia</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:86%"></div></div>
+              <div class="bar-val">8,6</div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label">Atención al cliente</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:78%"></div></div>
+              <div class="bar-val">7,8</div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label">Iniciativa propia</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:88%"></div></div>
+              <div class="bar-val">8,8</div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label">Resolución de problemas</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div>
+              <div class="bar-val">9,0</div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label">Autonomía</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:91%"></div></div>
+              <div class="bar-val">9,1</div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label">Adaptabilidad</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:92%"></div></div>
+              <div class="bar-val">9,2</div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label">Aprendizaje continuo</div>
+              <div class="bar-bg"><div class="bar-fill" style="width:95%"></div></div>
+              <div class="bar-val">9,5</div>
+            </div>
+          </div>
+        </div><!-- end chart-bar -->
+
+      </div><!-- end content -->
+
+    </div><!-- end cv-body -->
+
+    <!-- ══ FOOTER STRIP ══ -->
+    <div class="cv-url-footer">
+      CV descargado desde <span>cesargil.dev</span> · perfil completo, proyectos y contacto
+    </div>
+
+  </div><!-- end cv -->
+
+  <div class="print-note">
+    Para guardar como PDF: Ctrl+P → Guardar como PDF → Sin márgenes → Papel A4
+  </div>
+
+  </div>
+
+</body>
+</html>
