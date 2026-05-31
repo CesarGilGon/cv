@@ -282,10 +282,11 @@
       margin-bottom: 8px;
     }
     .chart-cols {
-      display: grid;
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 5px;
     }
+    .chart-col { display: flex; flex-direction: column; gap: 5px; }
     .chart-row { display: flex; align-items: center; gap: 6px; }
     .chart-label {
       font-size: 8pt;
@@ -372,7 +373,7 @@
       /* Chart desktop: dos columnas */
       .chart-bar { padding: 8px 18px 7px 18px; }
       .chart-title { font-size: 7pt; margin-bottom: 6px; }
-      .chart-cols { grid-template-columns: 1fr 1fr; gap: 4px 16px; }
+      .chart-cols { flex-direction: row; gap: 16px; }
       .chart-label { font-size: 6.5pt; width: 105px; }
       .bar-bg { height: 7px; }
       .bar-val { font-size: 6.5pt; width: 26px; }
@@ -567,94 +568,82 @@
           </div>
  
         </div><!-- end content-inner -->
- 
-        <!-- CHART: orden correcto para 2 columnas
-             Col izq (posiciones 1,3,5,7,9,11,13): 7,0 / 7,4 / 7,8 / 8,3 / 8,6 / 9,0 / 9,2
-             Col der (posiciones 2,4,6,8,10,12,14): 7,2 / 7,5 / 8,1 / 8,5 / 8,8 / 9,1 / 9,5
-             En una columna (móvil) el orden del DOM es: 7,0 / 7,2 / 7,4 / 7,5 / 7,8 / 8,1 ...
-             Para que en 2 cols quede bien izq=menores / der=mayores, usamos
-             grid con order o simplemente ordenamos el HTML en el orden correcto
-             para 2 cols: fila1-col1, fila1-col2, fila2-col1, fila2-col2...
-             Eso significa: 7,0 | 8,1 / 7,2 | 8,3 / 7,4 | 8,5 / 7,5 | 8,6 / 7,8 | 8,8 / — | 9,0 / — | 9,1 ...
-             NO. Lo correcto:
-             Los 7 primeros en col izq, los 7 últimos en col der.
-             Con grid-template-columns: 1fr 1fr y 14 items, el orden DOM es:
-             item1(col-izq) item2(col-der) item3(col-izq) item4(col-der)...
-             Así que para col-izq = [7,0 7,2 7,4 7,5 7,8 8,1 8,3] y col-der = [8,5 8,6 8,8 9,0 9,1 9,2 9,5]
-             El orden DOM debe ser: 7,0 / 8,5 / 7,2 / 8,6 / 7,4 / 8,8 / 7,5 / 9,0 / 7,8 / 9,1 / 8,1 / 9,2 / 8,3 / 9,5
-        -->
         <div class="chart-bar">
           <div class="chart-title">Aptitudes — autoevaluación honesta / 10</div>
           <div class="chart-cols">
-            <div class="chart-row">
-              <div class="chart-label">Documentación técnica</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:70%"></div></div>
-              <div class="bar-val">7,0</div>
+            <div class="chart-col">
+              <div class="chart-row">
+                <div class="chart-label">Documentación técnica</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:70%"></div></div>
+                <div class="bar-val">7,0</div>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Trabajo en equipo</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:72%"></div></div>
+                <div class="bar-val">7,2</div>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Organización</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:74%"></div></div>
+                <div class="bar-val">7,4</div>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Liderazgo</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:75%"></div></div>
+                <div class="bar-val">7,5</div>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Atención al cliente</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:78%"></div></div>
+                <div class="bar-val">7,8</div>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Comunicación técnica</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:81%"></div></div>
+                <div class="bar-val">8,1</div>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Tolerancia al estrés</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:83%"></div></div>
+                <div class="bar-val">8,3</div>
+              </div>
             </div>
-            <div class="chart-row">
-              <div class="chart-label">Pensamiento analítico</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:85%"></div></div>
-              <div class="bar-val">8,5</div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label">Trabajo en equipo</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:72%"></div></div>
-              <div class="bar-val">7,2</div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label">Resiliencia</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:86%"></div></div>
-              <div class="bar-val">8,6</div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label">Organización</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:74%"></div></div>
-              <div class="bar-val">7,4</div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label">Iniciativa propia</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:88%"></div></div>
-              <div class="bar-val">8,8</div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label">Liderazgo</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:75%"></div></div>
-              <div class="bar-val">7,5</div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label">Resolución de problemas</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div>
-              <div class="bar-val">9,0</div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label">Atención al cliente</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:78%"></div></div>
-              <div class="bar-val">7,8</div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label">Autonomía</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:91%"></div></div>
-              <div class="bar-val">9,1</div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label">Comunicación técnica</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:81%"></div></div>
-              <div class="bar-val">8,1</div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label">Adaptabilidad</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:92%"></div></div>
-              <div class="bar-val">9,2</div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label">Tolerancia al estrés</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:83%"></div></div>
-              <div class="bar-val">8,3</div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label">Aprendizaje continuo</div>
-              <div class="bar-bg"><div class="bar-fill" style="width:95%"></div></div>
-              <div class="bar-val">9,5</div>
+            <div class="chart-col">
+              <div class="chart-row">
+                <div class="chart-label">Pensamiento analítico</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:85%"></div></div>
+                <div class="bar-val">8,5</div>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Resiliencia</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:86%"></div></div>
+                <div class="bar-val">8,6</div>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Iniciativa propia</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:88%"></div></div>
+                <div class="bar-val">8,8</div>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Resolución de problemas</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div>
+                <div class="bar-val">9,0</div>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Autonomía</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:91%"></div></div>
+                <div class="bar-val">9,1</div>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Adaptabilidad</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:92%"></div></div>
+                <div class="bar-val">9,2</div>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Aprendizaje continuo</div>
+                <div class="bar-bg"><div class="bar-fill" style="width:95%"></div></div>
+                <div class="bar-val">9,5</div>
+              </div>
             </div>
           </div>
         </div>
