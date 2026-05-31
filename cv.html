@@ -305,9 +305,28 @@
     }
   </style>
 </head>
+<script>
+  function scaleCv() {
+    const wrapper = document.querySelector('.cv-outer');
+    const cv = document.querySelector('.cv');
+    const vw = window.innerWidth;
+    const cvPx = cv.offsetWidth;
+    if (vw < cvPx + 20) {
+      const scale = (vw - 20) / cvPx;
+      wrapper.style.transform = `scale(${scale})`;
+      wrapper.style.transformOrigin = 'top center';
+      wrapper.style.marginBottom = `-${cvPx * (1 - scale)}px`;
+    } else {
+      wrapper.style.transform = '';
+      wrapper.style.marginBottom = '';
+    }
+  }
+  window.addEventListener('load', scaleCv);
+  window.addEventListener('resize', scaleCv);
+</script>
 <body>
 
-  <div style="width:210mm; display:flex; flex-direction:column;">
+  <div class="cv-outer" style="width:210mm; display:flex; flex-direction:column;">
 
   <div class="cv">
 
